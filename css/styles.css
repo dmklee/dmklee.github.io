@@ -1,0 +1,43 @@
+body {
+	width : 80%;
+	max-width : 1200px;
+	font-family : "Helvetica";
+	margin : 0 auto;
+}
+
+.header {
+	width : 100%;
+	border-bottom : 2px solid black;
+	margin : 0 auto;
+}
+
+.header p {
+	font-size : 1.6rem;
+	font-weight : normal;
+	color : black;
+	padding : 15px 0 5px 20px;
+	margin : 0;
+
+}
+
+.main {
+	width : 100%;
+	min-height : 500px;
+	display : flex;
+	justify-content : flex-start;
+	flex-direction : row;
+}
+.main .sidebar {
+	width : 25%;
+	height : 100%;
+	margin-bottom : -1000px;
+	padding-bottom : 1000px;
+	overflow : hidden;
+	border-right : 2px solid black;
+}
+.main .sidebar div {
+	margin : 10px;
+}
+.main .sidebar div p{
+	margin : 2px;
+}
