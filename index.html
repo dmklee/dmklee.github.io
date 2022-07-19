@@ -1,54 +1,24 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="utf-8">
 	<title>David Klee</title>
 	<link rel="stylesheet" href="css/styles.css">
+	<script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
+
   <body>
-	<div class="header">
-	  <p>David Klee</p>
+	  <div id="header"></div>
+
+	<div id="body">
+	  <div id="sidebar"></div>
+	  <div id="main"></div>
 	</div>
 
-	<div class="main">
-
-	  <div class="sidebar">
-		<div>
-		  <a href="./index.html">Home</a>
-		  <a href="./index.html#research">Research</a>
-		  <a href="./index.html#teachin">Teaching</a>
-		  <a href="./index.html#visualizations">Visualizations</a>
-		</div>
-	  </div>
-
-	  <div class="column">
-
-		  <div class="body">
-			  I am a Ph.D. student in <a href="https://www.khoury.northeastern.edu/">Khoury College</a> of Northeastern University.
-			  I am a member of the <a href="https://www2.ccs.neu.edu/research/helpinghands/">Helping Hands Lab</a>, advised by Rob Platt.  I am studying how to learn object representations
-			  for robotic manipulation tasks.  I am also interested in robotics education
-			  and low-cost robotic manipulators.
-		  </div>
-
-		  <div class="title" id="research"> <p>Research</p></div>
-
-		  <div class="body">
-		  </div>
-
-		  <div class="title" id="teaching"> <p>Teaching</p> </div>
-
-		  <div class="body">
-		  </div>
-
-		  <div class="title" id="visualizations"> <p>Visualizations</p> </div>
-
-		  <div class="body">
-		  </div>
-
-	  </div>
-	</div>
-	<div class="footer"> © 2022 by David Klee </div>
+	<div id="footer"></div>
 	
-
+  <script src="./js/main.js"></script>
   </body>
+
 </html> 
