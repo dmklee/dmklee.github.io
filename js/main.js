@@ -2,7 +2,7 @@ const publications = [
 	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
 	 'authors' : 'David M. Klee, Ondrej Biza, Robert Platt, Robin Walters',
 	 'destination' : 'Preprint',
-	 'media' : '',
+	 'media' : 'assets/publications/i2i/media.png',
 	 'buttons' : {
 		 'PDF' : 'https://arxiv.org/abs/2207.08925',
 	 }
@@ -10,7 +10,7 @@ const publications = [
 	{'title' : 'Graph Structured Policy Learning for Multi-Goal Manipulation Tasks',
 	 'authors' : 'David M. Klee, Ondrej Biza, Robert Platt',
 	 'destination' : 'IROS 2022, Kyoto, Japan',
-	 'media' : '',
+	 'media' : 'assets/publications/iros22/media.png',
 	 'buttons' : {
 		 'Webpage' : '',
 		 'PDF' : '',
@@ -22,7 +22,7 @@ const publications = [
 	{'title' : "Understanding the Mechanism behind Data Augmentation's Success on Image Based RL",
 	 'authors' : 'David M. Klee, Robin Walters, Robert Platt',
 	 'destination' : 'RLDM 2022, Providence, RI, USA',
-	 'media' : '',
+	 'media' : 'assets/publications/data_aug/media.png',
 	 'buttons' : {
 		 'PDF' : './assets/publications/data_aug/paper.pdf',
 		 'Poster' : './assets/publications/data_aug/poster.pdf',
@@ -31,7 +31,7 @@ const publications = [
 	{'title' : "A compact, portable, re-configurable, and automated system for on-demand pharmaceutical tablet manufacturing",
 	 'authors' : 'Mohammad Azad, Juan Osorio, David Brancazio, Gregory Hammersmith, David M. Klee, Kersten Rapp, Allan Myerson',
 	 'destination' : 'International Journal of Pharmaceutics 539 (1-2), 157-164',
-	 'media' : '',
+	 'media' : 'assets/publications/pod/media.png',
 	 'buttons' : {
 		 'PDF' : 'https://www.sciencedirect.com/science/article/am/pii/S0378517318300395',
 	 }
@@ -77,11 +77,10 @@ const socials = [
 
 ];
 
-const page_max_width = "800px";
 const name = "David M. Klee";
 
 d3.select("body")
-	.style("max-width", "800px")
+	.style("max-width", "1000px")
 	.style("margin", "0 auto")
 	.style("font-family", "Times New Roman")
 	.style("font-size", "1.2rem")
@@ -98,18 +97,18 @@ var header = d3.select("#header")
 var main = d3.select('#main')
 
 var intro_div = main.append('div')
-					.style('width', '100%')
-					.style('margin-top', '15px')
+					.style('margin', '15px auto 0 auto')
 					.style('display', 'flex')
 					.style('flex-wrap', 'wrap')
 					.style('flex-direction', 'row')
-					.style('justify-content', 'flex-start')
+					.style('justify-content', 'space-around')
 					.style('padding', '15px')
+				
 
 // avatar
 intro_div.append('div')
 		 .style('width', '30%')
-		 .style('margin', 'auto 20px')
+		 .style('margin', 'auto 0')
 		 .style('min-width', '100px')
 		 .style('max-width', '200px')
 		 .append('img')
@@ -120,10 +119,9 @@ intro_div.append('div')
 
 // introduction
 text_intro = intro_div.append('div')
-		      .style('margin', 'auto 10px')
+		      .style('margin', 'auto 0')
 		      .style('min-width', '300px')
-		      .style('max-width', '700px')
-		      .style('width', '65%')
+		      .style('max-width', '600px')
 		      .style('text-align', 'justify')
 			
 text_intro.append('span')
@@ -159,15 +157,24 @@ function add_publication(pub) {
 	}
 	var div = main.append('div')
 				  .style('width', '95%')
-				  .style('margin', '15px auto')
 				  .style('display', 'flex')
 				  .style('flex-wrap', 'wrap')
 			 	  .style('flex-direction', 'row')
 				  .style('justify-content', 'flex-start')
+				  .style('align-items', 'center')
+				  .style('margin', '20px 10px 20px 10px')
 
 	var media = div.append('div')
+					.append('img')
+					.attr('src', pub['media'])
+					.style('overflow', 'hidden')
+					.style('object-fit', 'scale-down')
+					.style('width', '200px')
+					.style('margin-right', '20px')
 
 	var ref = div.append('div')
+		.style('margin', 'auto 0')
+		.style('max-width', '700px')
 	ref.append('text')
 		.style('font-weight', 'bold')
 		.text(pub['title'])
