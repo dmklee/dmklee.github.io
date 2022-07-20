@@ -120,10 +120,12 @@ intro_div.append('div')
 
 // introduction
 text_intro = intro_div.append('div')
-					  .style('margin', 'auto 10px')
-					  .style('min-width', '300px')
-					  .style('max-width', '700px')
-					  .style('width', '65%')
+		      .style('margin', 'auto 10px')
+		      .style('min-width', '300px')
+		      .style('max-width', '700px')
+		      .style('width', '65%')
+		      .style('text-align', 'justify')
+			
 text_intro.append('span')
 		 .text('I am a PhD student at Northeastern University.  I am a member of the ')
 text_intro.append('a').attr('href', 'https://www2.ccs.neu.edu/research/helpinghands/group.html')
