@@ -4,7 +4,7 @@ const publications = [
 	 'destination' : 'Preprint',
 	 'media' : '',
 	 'buttons' : {
-		 'PDF' : './assets/publications/data_aug/poster.pdf',
+		 'PDF' : 'https://arxiv.org/abs/2207.08925',
 	 }
 	},
 	{'title' : 'Graph Structured Policy Learning for Multi-Goal Manipulation Tasks',
