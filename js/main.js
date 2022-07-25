@@ -51,6 +51,7 @@ const publications = [
 ];
 const teaching_experiences = [
 	{'course' : 'CS4910: Deep Learning for Robotics',
+	 'website' : 'https://www.ccs.neu.edu/home/dmklee/cs4910_s22/index.html',
 	 'role' : 'Instructor',
 	 'location' : 'Northeastern University',
 	 'date' : 'Spring 2022',
@@ -224,8 +225,11 @@ function add_teaching_experience(exp) {
 			 	  .style('flex-direction', 'row')
 				  .style('justify-content', 'flex-start')
 	var ref = div.append('div')
+	ref.append('a')
+		.attr('href', exp['website'])
+		.text(exp['course'])
 	ref.append('text')
-		.text(exp['course'] + ' (' + exp['date'] + ')')
+		.text(' (' + exp['date'] + ')')
 	ref.append('br')
 	ref.append('text')
 		.style('font-weight', 'bold')
