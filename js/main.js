@@ -12,11 +12,11 @@ const publications = [
 	 'destination' : 'IROS 2022, Kyoto, Japan',
 	 'media' : 'assets/publications/iros22/media.png',
 	 'buttons' : {
-		 'Webpage' : '',
-		 'PDF' : '',
+		 'Webpage' : 'https://dmklee.github.io/graph-structured-manip',
+		 'PDF' : 'https://arxiv.org/abs/2207.11313',
 		 'Video' : '',
 		 'Talk' : '',
-		 'Code' : '',
+		 'Code' : 'https://github.com/dmklee/graph-structured-manip',
 	 }
 	},
 	{'title' : "Understanding the Mechanism behind Data Augmentation's Success on Image Based RL",
