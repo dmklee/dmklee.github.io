@@ -124,21 +124,40 @@ text_intro = intro_div.append('div')
 		      .style('min-width', '300px')
 		      .style('max-width', '600px')
 		      .style('text-align', 'justify')
-			
-text_intro.append('span')
-		 .text('I am a PhD student at Northeastern University.  I am a member of the ')
-text_intro.append('a').attr('href', 'https://www2.ccs.neu.edu/research/helpinghands/group.html')
-		 .text('Helping Hands Lab')
-text_intro.append('span')
-		 .text(', advised by ')
-text_intro.append('a').attr('href', 'https://www.khoury.northeastern.edu/people/robert-platt/')
-		 .text('Robert Platt')
-text_intro.append('span')
-		 .text('.  I am studying how to learn object representations for robotic manipulation tasks.  I am also interested in robotics education and low-cost robotic manipulators.')
 
+var bio_text = `I am a PhD student at Northeastern University.  I am a member of the Helping Hands Lab, 
+			   advised by Robert Platt. I am studying how to learn object representations for robotic 
+			   manipulation tasks. I am also interested in robotics education and low-cost robotic manipulators.`
+var links_to_add = [
+	{text: 'Helping Hands Lab', href:'https://www2.ccs.neu.edu/research/helpinghands/group.html'},
+	{text: 'Robert Platt', href:'https://www.khoury.northeastern.edu/people/robert-platt/'},
+];
+					
+
+
+function add_text_with_links(text, links, parent_div) {
+	for (let i=0; i<links.length; i++) {
+		links[i].start_idx = text.search(links[i].text);
+	}
+	links = links.sort((a,b) => (a.start_idx > b.start_idx) ? 1 : -1)
+
+	// now go in order through the text adding spans or anchors as needed
+	let loc = 0
+	for (let i=0; i<links.length; i++) {
+		if (links[i].start_idx == -1 ) continue;
+		parent_div.append('span')
+				  .text(text.slice(loc, links[i].start_idx))
+		parent_div.append('a')
+				  .attr('href', links[i].href)
+				  .text(links[i].text)
+		loc = links[i].start_idx + links[i].text.length;
+	}
+	parent_div.append('span')
+			  .text(text.slice(loc))
+}
+add_text_with_links(bio_text, links_to_add, text_intro);
 text_intro.selectAll("a")
 		  .style('color', 'blue')
-
 
 function make_header(title) {
 	main.append('div')
@@ -208,7 +227,6 @@ function add_publication(pub) {
 				   .style('border-radius', '5px')
 				   .attr('href', target)
 				   .text(text)
-		console.log(text)
 	}
 	Object.entries(pub['buttons']).map(add_button);
 }
@@ -240,6 +258,30 @@ function add_teaching_experience(exp) {
 }
 make_header('Teaching');
 teaching_experiences.map(add_teaching_experience);
+
+// outreach
+//make_header('Outreach');
+
+//main.append('div')
+    //.style('width', '100%')
+    //.style('height', '200px')
+	//.style('overflow', 'hidden')
+    //.style('border', '2px red solid')
+    //.style('background', 'black')
+    //.style('border-radius', '10px')
+	//.append('video')
+	//.attr('autoplay', 'autoplay')
+	//.attr('loop', 'loop')
+	//.attr('muted', 'muted')
+	//.attr('playsinline', 'muted')
+	//.attr('width', '50%')
+	//.style('transform', 'translate(50%, 10%)')
+	//.append('source')
+	//.attr('src', 'https://dmklee.github.io/nuro-arm/images/media.mp4')
+	//.attr('type', 'video/mp4')
+
+
+
 
 // make footer
 var footer = d3.select("#footer")
