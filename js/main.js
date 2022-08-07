@@ -1,3 +1,5 @@
+import { ThreeBodyVisualization } from './three_body.js';
+
 const publications = [
 	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
 	 'authors' : 'David M. Klee, Ondrej Biza, Robert Platt, Robin Walters',
@@ -119,7 +121,7 @@ intro_div.append('div')
 		 .style('width', '100%')
 
 // introduction
-text_intro = intro_div.append('div')
+var text_intro = intro_div.append('div')
 		      .style('margin', 'auto 0')
 		      .style('min-width', '300px')
 		      .style('max-width', '600px')
@@ -133,7 +135,6 @@ var links_to_add = [
 	{text: 'Robert Platt', href:'https://www.khoury.northeastern.edu/people/robert-platt/'},
 ];
 					
-
 
 function add_text_with_links(text, links, parent_div) {
 	for (let i=0; i<links.length; i++) {
@@ -280,7 +281,44 @@ teaching_experiences.map(add_teaching_experience);
 	//.attr('src', 'https://dmklee.github.io/nuro-arm/images/media.mp4')
 	//.attr('type', 'video/mp4')
 
+// make visualizations
+make_header('Visualizations');
+var vis_div = main.append('div')
+				  .style('width', '100%')
+				  .style('display', 'flex')
+				  .style('flex-wrap', 'wrap')
+				  .style('flex-direction', 'row')
+				  .style('justify-content', 'space-around')
+				  .style('margin', '20px')
 
+var visualizations = [
+	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
+];
+
+for (let i=0; i<visualizations.length; i++) {
+	let div = vis_div.append('div')
+	   .style('margin', '20px')
+	   .style('height', '400px')
+	   .style('width', '400px')
+	   .style('border', '2px black solid')
+	   .style('border-radius', '20px')
+	   .style('overflow', 'hidden')
+	visualizations[i].obj = new ThreeBodyVisualization(div);
+	div.on('mouseover', function(d) {
+		   d3.select(this).selectAll('text').transition().duration(500).style('opacity', 0);
+		   //d3.select(this).transition().duration(1000).style('cursor', 'none');
+		   visualizations[i].obj.running = true;
+	   })
+	   .on('mouseout', function(d) {
+		   d3.select(this).selectAll('text').transition().duration(500).style('opacity', 1);
+		   visualizations[i].obj.running = false;
+	   })
+	   .on('dblclick', function(event, d) {
+		   event.preventDefault();
+		   visualizations[i].obj.reset();
+	   })
+
+}
 
 
 // make footer
@@ -296,8 +334,13 @@ var footer = d3.select("#footer")
 	.style('font-style', 'italic')
 	.style('margin', '10px auto')
 
+
 //function resize() {
 	////https://stackoverflow.com/questions/29617177/change-image-with-page-width-resize
 //}
 //resize();
 //$(window).on('resize', resize);
+function update_visualizations() {
+	visualizations.forEach(d=>d.obj.step());
+}
+d3.interval(update_visualizations, 30);
