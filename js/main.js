@@ -1,4 +1,5 @@
 import { ThreeBodyVisualization } from './three_body.js';
+import { CorridorVisualization } from './corridor.js';
 
 const publications = [
 	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
@@ -293,6 +294,7 @@ var vis_div = main.append('div')
 
 var visualizations = [
 	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
+	{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
 ];
 
 for (let i=0; i<visualizations.length; i++) {
@@ -303,7 +305,7 @@ for (let i=0; i<visualizations.length; i++) {
 	   .style('border', '2px black solid')
 	   .style('border-radius', '20px')
 	   .style('overflow', 'hidden')
-	visualizations[i].obj = new ThreeBodyVisualization(div);
+	visualizations[i].obj = new visualizations[i].constructor(div);
 	div.on('mouseover', function(d) {
 		   d3.select(this).selectAll('text').transition().duration(500).style('opacity', 0);
 		   //d3.select(this).transition().duration(1000).style('cursor', 'none');
