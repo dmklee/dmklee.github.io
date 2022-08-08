@@ -1,5 +1,6 @@
 import { ThreeBodyVisualization } from './three_body.js';
 import { CorridorVisualization } from './corridor.js';
+import { FlockVisualization } from './flock.js';
 
 const publications = [
 	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
@@ -295,6 +296,7 @@ var vis_div = main.append('div')
 var visualizations = [
 	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
 	{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
+	{name: 'Flock Together', constructor: FlockVisualization, obj: null},
 ];
 
 for (let i=0; i<visualizations.length; i++) {
@@ -308,7 +310,7 @@ for (let i=0; i<visualizations.length; i++) {
 	visualizations[i].obj = new visualizations[i].constructor(div);
 	div.on('mouseover', function(d) {
 		   d3.select(this).selectAll('text').transition().duration(500).style('opacity', 0);
-		   //d3.select(this).transition().duration(1000).style('cursor', 'none');
+		   d3.select(this).transition().duration(1000).style('cursor', 'none');
 		   visualizations[i].obj.running = true;
 	   })
 	   .on('mouseout', function(d) {
