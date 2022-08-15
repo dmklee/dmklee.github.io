@@ -1,6 +1,7 @@
 import { ThreeBodyVisualization } from './three_body.js';
 import { CorridorVisualization } from './corridor.js';
 import { FlockVisualization } from './flock.js';
+import { ErosionVisualization } from './erosion.js';
 
 const publications = [
 	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
@@ -81,6 +82,16 @@ const socials = [
 	},
 
 ];
+const projects = [
+	{'title' : 'NURO Arm',
+	 'desc' : 'Accessible educational platform for hands-on robotics projects.  Offers simple Python interface for controlling robotic arm with cross-platform support and virtual simulator.',
+	 'media' : 'assets/projects/nuro-arm/media.png',
+	 'buttons' : {
+		 'Website' : 'https://github.com/dmklee/nuro-arm',
+		 'Docs' : 'https://nuro-arm.readthedocs.io/en/latest/?',
+	 }
+	},
+]
 
 const name = "David M. Klee";
 
@@ -283,49 +294,121 @@ teaching_experiences.map(add_teaching_experience);
 	//.attr('src', 'https://dmklee.github.io/nuro-arm/images/media.mp4')
 	//.attr('type', 'video/mp4')
 
-// make visualizations
-make_header('Visualizations');
-var vis_div = main.append('div')
-				  .style('width', '100%')
+
+///////////////////////////////////////////////
+// projects
+///////////////////////////////////////////////
+function add_project(proj) {
+	if (proj['title'].length == 0) {
+		return;
+	}
+	var div = main.append('div')
+				  .style('width', '95%')
 				  .style('display', 'flex')
 				  .style('flex-wrap', 'wrap')
-				  .style('flex-direction', 'row')
-				  .style('justify-content', 'space-around')
-				  .style('margin', '20px')
+			 	  .style('flex-direction', 'row')
+				  .style('justify-content', 'flex-start')
+				  .style('align-items', 'center')
+				  .style('margin', '20px 10px 20px 10px')
 
-var visualizations = [
-	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
-	{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
-	{name: 'Flock Together', constructor: FlockVisualization, obj: null},
-];
+	var media = div.append('div')
+					.append('img')
+					.attr('src', proj['media'])
+					.style('overflow', 'hidden')
+					.style('object-fit', 'scale-down')
+					.style('width', '200px')
+					.style('margin-right', '20px')
 
-for (let i=0; i<visualizations.length; i++) {
-	let div = vis_div.append('div')
-	   .style('margin', '20px')
-	   .style('height', '400px')
-	   .style('width', '400px')
-	   .style('border', '2px black solid')
-	   .style('border-radius', '20px')
-	   .style('overflow', 'hidden')
-	visualizations[i].obj = new visualizations[i].constructor(div);
-	div.on('mouseover', function(d) {
-		   d3.select(this).selectAll('text').transition().duration(500).style('opacity', 0);
-		   d3.select(this).transition().duration(1000).style('cursor', 'none');
-		   visualizations[i].obj.running = true;
-	   })
-	   .on('mouseout', function(d) {
-		   d3.select(this).selectAll('text').transition().duration(500).style('opacity', 1);
-		   visualizations[i].obj.running = false;
-	   })
-	   .on('dblclick', function(event, d) {
-		   event.preventDefault();
-		   visualizations[i].obj.reset();
-	   })
+	var ref = div.append('div')
+		.style('margin', 'auto 0')
+		.style('max-width', '700px')
+	ref.append('text')
+		.style('font-weight', 'bold')
+		.text(proj['title'])
+	ref.append('br')
+	ref.append('text')
+		.text(proj['desc'])
 
+	var buttons_row = ref.append('div')
+						  .style('width', '100%')
+						  .style('display', 'flex')
+						  .style('flex-direction', 'row')
+						  .style('justify-content', 'flex-start')
+
+	function add_button(button) {
+		var text = button[0];
+		var target = button[1];
+		if (target.length == 0) return;
+
+		buttons_row.append('a')
+				   .style('text-decoration', 'none')
+				   .style('color', 'blue')
+				   .style('font-size', '1.0rem')
+				   .style('border', 'blue 1px solid')
+				   .style('padding', '2px 4px')
+				   .style('margin', '6px 5px')
+				   .style('border-radius', '5px')
+				   .attr('href', target)
+				   .text(text)
+	}
+	Object.entries(proj['buttons']).map(add_button);
+}
+make_header('Projects');
+projects.map(add_project);
+
+///////////////////////////////////////////////
+// make visualizations
+///////////////////////////////////////////////
+if (false) {
+	make_header('Visualizations');
+	var vis_div = main.append('div')
+					  .style('width', '100%')
+					  .style('display', 'flex')
+					  .style('flex-wrap', 'wrap')
+					  .style('flex-direction', 'row')
+					  .style('justify-content', 'space-around')
+					  .style('margin', '20px')
+
+	var visualizations = [
+		//{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
+		//{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
+		//{name: 'Flock Together', constructor: FlockVisualization, obj: null},
+		{name: 'Erosion', constructor: ErosionVisualization, obj: null},
+	];
+
+	for (let i=0; i<visualizations.length; i++) {
+		let div = vis_div.append('div')
+		   .style('margin', '20px')
+		   .style('height', '400px')
+		   .style('width', '400px')
+		   .style('border', '2px black solid')
+		   .style('border-radius', '20px')
+		   .style('overflow', 'hidden')
+		visualizations[i].obj = new visualizations[i].constructor(div);
+		div.on('mouseover', function(d) {
+			   d3.select(this).selectAll('text').transition().duration(500).style('opacity', 0);
+			   d3.select(this).transition().duration(1000).style('cursor', 'none');
+			   visualizations[i].obj.running = true;
+		   })
+		   .on('mouseout', function(d) {
+			   d3.select(this).selectAll('text').transition().duration(500).style('opacity', 1);
+			   visualizations[i].obj.running = false;
+		   })
+		   .on('dblclick', function(event, d) {
+			   event.preventDefault();
+			   visualizations[i].obj.reset();
+		   })
+	}
+	function update_visualizations() {
+		visualizations.forEach(d=>d.obj.step());
+	}
+	d3.interval(update_visualizations, 30);
 }
 
 
+///////////////////////////////////////////////
 // make footer
+///////////////////////////////////////////////
 var footer = d3.select("#footer")
 	.style('width', '100%')
 	.style('display', 'flex')
@@ -344,7 +427,3 @@ var footer = d3.select("#footer")
 //}
 //resize();
 //$(window).on('resize', resize);
-function update_visualizations() {
-	visualizations.forEach(d=>d.obj.step());
-}
-d3.interval(update_visualizations, 30);
