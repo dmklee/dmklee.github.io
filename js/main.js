@@ -383,7 +383,13 @@ projects.map(add_project);
 ///////////////////////////////////////////////
 // make visualizations
 ///////////////////////////////////////////////
-if (false) {
+var visualizations = [
+	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
+	{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
+	//{name: 'Flock Together', constructor: FlockVisualization, obj: null},
+	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
+];
+if (visualizations.length > 0) {
 	make_header('Visualizations');
 	var vis_div = main.append('div')
 					  .style('width', '100%')
@@ -393,12 +399,6 @@ if (false) {
 					  .style('justify-content', 'space-around')
 					  .style('margin', '20px')
 
-	var visualizations = [
-		//{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
-		//{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
-		//{name: 'Flock Together', constructor: FlockVisualization, obj: null},
-		{name: 'Erosion', constructor: ErosionVisualization, obj: null},
-	];
 
 	for (let i=0; i<visualizations.length; i++) {
 		let div = vis_div.append('div')

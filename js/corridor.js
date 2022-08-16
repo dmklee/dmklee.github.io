@@ -151,11 +151,11 @@ function generate_shape(x, y, z, theta) {
 // Define animation variables
 ///////////////////////////////////////////////////////////////
 var SPEED = 0.8;
-var SPAWN_INTERVAL = 4;
-var MIN_DEPTH = 0.1;
-var FOCAL_LENGTH = 14;
+var SPAWN_INTERVAL = 5;
+var MIN_DEPTH = 0.05;
+var FOCAL_LENGTH = 9;
 var N_SIDES = 4;
-var MIN_RENDER_AREA = 0.01;
+var MIN_RENDER_AREA = 0.015;
 
 export class CorridorVisualization {
 	constructor(parent_div) {
@@ -195,13 +195,16 @@ export class CorridorVisualization {
 			   .style('font-size', '12px')
 	}
 	reset() {
+		let was_running = this.running;
+		this.running = false;
 		this.shapes = new Array();
   		while (1) {
     		this.step_physics();
-    		if (this.shapes[0].z < 1) {
+    		if (this.shapes.length > 0 && this.shapes[0].z < 1) {
 				break;
 			}
 		}
+		this.running = was_running;
 	}
 	step() {
 		if (this.running) {
@@ -225,14 +228,14 @@ export class CorridorVisualization {
 			.attr("stroke-width", function(d) {
 				return d.z < 15 ? 15-d.z : 1;
 			})
-			.attr("opacity", function(d) {
-				return d.z < 15 ? d.z/20 : 1;
+			.style("stroke", function(d) {
+				let val = d.z < 20 ? 255*d.z/20 : 255;
+				return `rgb(${val}, ${val}, ${val})`;
 			})
-			.style("stroke", "white");
 	}
 	update_vp() {
 		// updates viewpoint
-		this.vp.theta = this.t/500 ;
+		this.vp.theta = this.t/300 ;
 		this.vp.x = 0.26 * Math.cos(-this.t/50);
 		this.vp.y = 0.2 * Math.sin(-this.t/70);
 	}
