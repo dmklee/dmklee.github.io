@@ -65,6 +65,7 @@ const teaching_experiences = [
 	},
 	{'course' : 'CS5100: Foundations of Artificial Intelligence',
 	 'role' : 'Teaching Assistant',
+	 'website' : '',
 	 'location' : 'Northeastern University',
 	 'date' : 'Fall 2020',
 	 'buttons' : {
@@ -106,8 +107,8 @@ var header = d3.select("#header")
 	.style('border-bottom', '4px solid black')
 	.append('p')
 	.text(name)
-	.style('font-size', '2.3rem')
-	.style('padding', '15px 0 5px 20px')
+	.style('font-size', '2.1rem')
+	.style('padding', '25px 0 5px 20px')
 	.style('margin', '0')
 
 var main = d3.select('#main')
@@ -232,6 +233,16 @@ function add_publication(pub) {
 		if (target.length == 0) return;
 
 		buttons_row.append('a')
+				   .on('mouseover', function() {
+					   d3.select(this).style('background-color', 'blue');
+					   d3.select(this).style('color', 'white');
+					   d3.select(this).style('font-weight', 'bold');
+				   })
+				   .on('mouseout', function() {
+					   d3.select(this).style('background-color', 'white');
+					   d3.select(this).style('color', 'blue');
+					   d3.select(this).style('font-weight', 'normal');
+				   })
 				   .style('text-decoration', 'none')
 				   .style('color', 'blue')
 				   .style('font-size', '1.0rem')
@@ -257,9 +268,12 @@ function add_teaching_experience(exp) {
 			 	  .style('flex-direction', 'row')
 				  .style('justify-content', 'flex-start')
 	var ref = div.append('div')
-	ref.append('a')
-		.attr('href', exp['website'])
-		.text(exp['course'])
+	if (exp['website'] != '') {
+		ref.append('a')
+			.attr('href', exp['website']).text(exp['course'])
+	} else {
+		ref.text(exp['course'])
+	}
 	ref.append('text')
 		.text(' (' + exp['date'] + ')')
 	ref.append('br')
@@ -341,6 +355,16 @@ function add_project(proj) {
 		if (target.length == 0) return;
 
 		buttons_row.append('a')
+				   .on('mouseover', function() {
+					   d3.select(this).style('background-color', 'blue');
+					   d3.select(this).style('color', 'white');
+					   d3.select(this).style('font-weight', 'bold');
+				   })
+				   .on('mouseout', function() {
+					   d3.select(this).style('background-color', 'white');
+					   d3.select(this).style('color', 'blue');
+					   d3.select(this).style('font-weight', 'normal');
+				   })
 				   .style('text-decoration', 'none')
 				   .style('color', 'blue')
 				   .style('font-size', '1.0rem')
