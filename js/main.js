@@ -1,7 +1,7 @@
 import { ThreeBodyVisualization } from './three_body.js';
 import { CorridorVisualization } from './corridor.js';
-import { FlockVisualization } from './flock.js';
-import { ErosionVisualization } from './erosion.js';
+//import { FlockVisualization } from './flock.js';
+//import { ErosionVisualization } from './erosion.js';
 
 const publications = [
 	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
@@ -386,7 +386,7 @@ projects.map(add_project);
 var visualizations = [
 	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
 	{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
-	//{name: 'Flock Together', constructor: FlockVisualization, obj: null},
+	//{name: 'Flock', constructor: FlockVisualization, obj: null},
 	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
