@@ -1,6 +1,7 @@
 import { ThreeBodyVisualization } from './three_body.js';
 import { CorridorVisualization } from './corridor.js';
-//import { FlockVisualization } from './flock.js';
+import { FlockVisualization } from './flock.js';
+//import { BouncingVisualization } from './bouncing.js';
 //import { ErosionVisualization } from './erosion.js';
 
 const publications = [
@@ -386,7 +387,7 @@ projects.map(add_project);
 var visualizations = [
 	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
 	{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
-	//{name: 'Flock', constructor: FlockVisualization, obj: null},
+	{name: 'Flock', constructor: FlockVisualization, obj: null},
 	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
@@ -440,7 +441,7 @@ var footer = d3.select("#footer")
 	.style('margin-top', '40px')
 	.style('border-top', '4px solid black')
 	.append('p')
-	.text('© 2022 by David Klee. Made with D3.js.')
+	.text('© 2022 by David Klee')
 	.style('font-size', '1rem')
 	.style('font-style', 'italic')
 	.style('margin', '10px auto')

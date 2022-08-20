@@ -1,23 +1,29 @@
+const PI = 3.14159;
+const SQ2 = 1.4142135;
+
 export class FlockVisualization {
 	constructor(parent_div) {
 		this.running = false;
 		this.xscale = d3.scaleLinear()
 					  .range([0, parent_div.style('width')])
-					  .domain([-0.1, 1.1])
+					  .domain([-0., 1.])
 		this.yscale = d3.scaleLinear()
 					  .range([0, parent_div.style('height')])
-					  .domain([-0.1, 1.1])
+					  .domain([-0., 1.])
 		this.n_birds = 100;
 		this.bird_size = 0.04;
-		this.noise_magn = 0.05;
+		this.noise_magn = 0.30;
 		this.dt = 0.01;
 		this.svg = parent_div.append('svg')
 		   		.attr('width', parent_div.style('width'))
 				.attr('height', parent_div.style('height'))
 				.style('background', '#0e0e0e')
 				.append('g')
-		this.reset_birds();
+		this.reset();
+
+		this.render_first_time();
 		this.render();
+
 		this.svg.append('text')
 			   .attr('x', 12)
 			   .attr('y', 36)
@@ -33,7 +39,18 @@ export class FlockVisualization {
 			   .style('font-size', '12px')
 	}
 	reset() {
-		this.reset_birds();
+		this.noise_magn = 0.3 + 0.2*(Math.random()-0.5);
+
+		this.birds = [];
+		for (let i=0; i<this.n_birds; i++) {
+			this.birds.push({
+				x:Math.random(),
+				y:Math.random(),
+				th:2*PI*Math.random(),
+				speed:1 + 0.2*(Math.random()-0.5),
+			});
+		}
+		this.birds.forEach(function(d) {d.dx = Math.cos(d.th); d.dy = Math.sin(d.th);});
 	}
 	step() {
 		if (this.running) {
@@ -41,53 +58,41 @@ export class FlockVisualization {
 			this.render();
 		}
 	}
-	reset_birds() {
-		this.birds = [];
-		for (let i=0; i<this.n_birds; i++) {
-			this.birds.push({
-				x:Math.random(),
-				y:Math.random(),
-				th:2*3.14159*Math.random(),
-			});
-		}
-		this.birds.forEach(function(d) {d.dx = Math.cos(d.th); d.dy = Math.sin(d.th);});
-	}
-	render() {
+	render_first_time() {
+		let m = this.xscale(this.bird_size).slice(0,-2);
+		let bird_path = d3.path();
+		bird_path.moveTo(m/5,0);
+		bird_path.lineTo(0,-m/3);
+		bird_path.lineTo(m, 0);
+		bird_path.lineTo(0, m/3);
+		bird_path.closePath();
 		this.svg.selectAll('#bird')
 		   .data(this.birds)
-		   .join(
-			   function(enter) {return enter.append('line');},
-			   function(update) {return update;}
-		   )
-		   .transition()
-		   .duration(1000*this.dt)
+		   .enter()
+		   .append('path')
 		   .attr('id', 'bird')
-		   .attr('x1', d => this.yscale(d.x - 0.5*this.bird_size*d.dx))
-		   .attr('y1', d => this.xscale(d.y - 0.5*this.bird_size*d.dy))
-		   .attr('x2', d => this.xscale(d.x + 0.5*this.bird_size*d.dx))
-		   .attr('y2', d => this.xscale(d.y + 0.5*this.bird_size*d.dy))
-		   .attr('stroke', 'white')
-		   .attr('stroke-width', 3)
-		this.svg.selectAll('#birdhead')
+		   .attr('d', bird_path)
+		   .attr('fill', 'blue')
+		   .attr('opacity', '0.7')
+	}
+	render() {
+		let xscale = d => this.xscale(d).slice(0,-2);
+		let yscale = d => this.yscale(d).slice(0,-2);
+		this.svg.selectAll('#bird')
 		   .data(this.birds)
-		   .join(
-			   function(enter) {return enter.append('line');},
-			   function(update) {return update;}
-		   )
-		   .transition()
-		   .duration(1000*this.dt)
-		   .attr('id', 'birdhead')
-		   .attr('x1', d => this.yscale(d.x))
-		   .attr('y1', d => this.xscale(d.y))
-		   .attr('x2', d => this.xscale(d.x + 0.5*this.bird_size*d.dx))
-		   .attr('y2', d => this.xscale(d.y + 0.5*this.bird_size*d.dy))
-		   .attr('stroke', 'blue')
-		   .attr('stroke-width', 3)
+		   //.transition()
+		   //.duration(1000*this.dt)
+		   .attr('transform', function(d) {
+			   let tx = xscale(d.x);
+			   let ty = yscale(d.y);
+			   let rot = 180 * d.th / PI;
+			   return `translate(${tx},${ty}) rotate(${rot})`;
+		   })
 	}
 	step_physics() {
 		// avoid wall
 		let grid_pools = [];
-		let n_grid = 5;
+		let n_grid = 8;
 		for (let i=0; i< n_grid*n_grid; i++){
 			grid_pools.push({dx:0, dy:0});
 		}
@@ -100,25 +105,25 @@ export class FlockVisualization {
 		}
 		for (let i=0;i<this.n_birds; i++) {
 			let d = this.birds[i];
-			let dth = 0.15*(Math.random()-0.5);
-			// adjust dth to avoid wall, need to make this smooth
-			if (d.x < 0.1 && d.dx < 0) {
-				dth += d.dy < 0 ? 0.15 : -0.15;
-			} else if (d.x > 0.9 && d.dx > 0) {
-				dth += d.dy > 0 ? 0.15 : -0.15;
-			} else if (d.y < 0.1 && d.dy < 0) {
-				dth += d.dx > 0 ? 0.15 : -0.15;
-			} else if (d.y > 0.9 && d.dy > 0) {
-				dth += d.dx < 0 ? 0.15 : -0.15;
+			//noise
+			let dth = this.noise_magn*(Math.random()-0.5);
+			 //adjust dth to avoid wall, need to make this smooth
+			if (d.x < 0.4 && d.dx < 0) {
+				dth -= 0.1*d.dy * Math.pow(1.4-d.x, 4);
+			} else if (d.x > 0.6 && d.dx > 0) {
+				dth += 0.1*d.dy * Math.pow(d.x+0.4, 4);
+			} else if (d.y < 0.4 && d.dy < 0) {
+				dth += 0.1*d.dx * Math.pow(1.4-d.y, 4);
+			} else if (d.y > 0.6 && d.dy > 0) {
+				dth -= 0.1*d.dx * Math.pow(d.y+0.4, 4);
 			}
 			let dot = grid_pools[d.grid_id].dx * d.dx + grid_pools[d.grid_id].dy * d.dy;
 			let cross = grid_pools[d.grid_id].dx * d.dy - grid_pools[d.grid_id].dy * d.dx;
-			if (0.95 > Math.abs(dot) > 0.1) {
+			if (0.9 > Math.abs(dot) > 0.3) {
 				dth -= Math.sign(cross) * 0.1;
 			}
-
-			d.x += d.dx * this.dt;
-			d.y += d.dy * this.dt;
+			d.x += d.speed * d.dx * this.dt;
+			d.y += d.speed * d.dy * this.dt;
 			d.th += dth;
 			d.dx = Math.cos(d.th);
 			d.dy = Math.sin(d.th);
