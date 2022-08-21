@@ -89,7 +89,7 @@ const projects = [
 	 'desc' : 'Accessible educational platform for hands-on robotics projects.  Offers simple Python interface for controlling robotic arm with cross-platform support and virtual simulator.',
 	 'media' : 'assets/projects/nuro-arm/media.png',
 	 'buttons' : {
-		 'Website' : 'https://dmklee.github.com/nuro-arm',
+		 'Website' : 'https://dmklee.github.io/nuro-arm',
 		 'Docs' : 'https://nuro-arm.readthedocs.io/en/latest/?',
 	 }
 	},
