@@ -1,16 +1,19 @@
 import { ThreeBodyVisualization } from './three_body.js';
 import { CorridorVisualization } from './corridor.js';
 import { FlockVisualization } from './flock.js';
-//import { BouncingVisualization } from './bouncing.js';
+import { InsideOutVisualization } from './inside_out.js';
 //import { ErosionVisualization } from './erosion.js';
 
 const publications = [
 	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
 	 'authors' : 'David M. Klee, Ondrej Biza, Robert Platt, Robin Walters',
-	 'destination' : 'Preprint',
+	 'destination' : 'PMLR Volume on Symmetry and Geometry',
 	 'media' : 'assets/publications/i2i/media.png',
 	 'buttons' : {
+		 'Webpage' : 'https://dmklee.github.io/image2icosahedral',
 		 'PDF' : 'https://arxiv.org/abs/2207.08925',
+		 'Code' : 'https://github.com/dmklee/image2icosahedral',
+		 'Poster' : '',
 	 }
 	},
 	{'title' : 'Graph Structured Policy Learning for Multi-Goal Manipulation Tasks',
@@ -77,10 +80,17 @@ const socials = [
 	{'name' : 'Email',
 	 'link' : 'mailto:klee.d@northeastern.edu',
 	 'img' : 'assets/images/mail_icon.png',
+	 'size' : '40px',
 	},
 	{'name' : 'Github',
 	 'link' : 'https://www.github.com/dmklee',
 	 'img' : 'assets/images/github_icon.png',
+	 'size' : '40px',
+	},
+	{'name' : 'Google Scholar',
+	 'link' : 'https://scholar.google.com/citations?user=TJEEkJoAAAAJ&hl=en&oi=ao',
+	 'img' : 'assets/images/gscholar.png',
+	 'size' : '41px',
 	},
 
 ];
@@ -101,16 +111,30 @@ d3.select("body")
 	.style("max-width", "1000px")
 	.style("margin", "0 auto")
 	.style("font-family", "Times New Roman")
-	.style("font-size", "1.2rem")
+	.style("font-size", "1.2rem");
 
 var header = d3.select("#header")
 	.style('width', '100%')
 	.style('border-bottom', '4px solid black')
+	.style('display', 'flex')
+	.style('justify-content', 'space-between');
+header
 	.append('p')
 	.text(name)
 	.style('font-size', '2.1rem')
 	.style('padding', '25px 0 5px 20px')
-	.style('margin', '0')
+	.style('margin', '0');
+
+var social_div = header.append('div').style('padding-right', '10px');
+for (let i=0; i!=socials.length; i++) {
+	social_div
+		.append('a')
+		.attr('href', socials[i]['link'])
+		.append('img')
+		.attr('src', socials[i]['img'])
+		.attr('height', socials[i]['size'])
+		.style('padding', '25px 0 5px 5px')
+}
 
 var main = d3.select('#main')
 
@@ -388,6 +412,7 @@ var visualizations = [
 	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
 	{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
 	{name: 'Flock', constructor: FlockVisualization, obj: null},
+	//{name: 'Inside Out', constructor: InsideOutVisualization, obj: null},
 	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
@@ -427,7 +452,7 @@ if (visualizations.length > 0) {
 	function update_visualizations() {
 		visualizations.forEach(d=>d.obj.step());
 	}
-	d3.interval(update_visualizations, 30);
+	d3.timer(update_visualizations, 50);
 }
 
 

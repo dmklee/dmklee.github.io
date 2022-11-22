@@ -59,19 +59,6 @@ class Planet {
 	}
 }
 
-// create svg
-//var first = true;
-//var size = 500;
-//var svg = d3.select('body')
-			//.style('width', '100%')
-			//.style('height', '100%')
-			//.append('svg')
-			//.attr('width', size)
-			//.attr('height', size)
-			//.style('background', '#0b0b0b')
-			//.call(d3.zoom().on("zoom", function (event) {
-				//svg.attr('transform', event.transform)
-			//})).append('g');
 
 export class ThreeBodyVisualization {
 	constructor(parent_div) {
@@ -83,8 +70,8 @@ export class ThreeBodyVisualization {
 					  .range([0, parent_div.style('height')])
 					  .domain([-1, 1])
 		this.age = 100; // length of tracer
-		this.G = 10;
-		this.dt = 0.005;
+		this.G = 8;
+		this.dt = 0.002;
 		this.svg = parent_div.append('svg')
 		   		.attr('width', parent_div.style('width'))
 				.attr('height', parent_div.style('height'))
@@ -149,7 +136,7 @@ export class ThreeBodyVisualization {
 				dist = distx*distx + disty*disty;
 
 				// to prevent ejection of planets, add minimal distance
-				dist = Math.max(dist, 0.001);
+				dist = Math.max(dist, 0.0001);
 
 				accelerations[i].ax += distx * this.G * this.planets[j].mass / dist;
 				accelerations[i].ay += disty * this.G * this.planets[j].mass / dist;

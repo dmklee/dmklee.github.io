@@ -1,5 +1,10 @@
 var PI = 3.14159;
 
+function random_uniform(low, high) {
+	var z = Math.random();
+	return (high - low)*z + low;
+}
+
 function lineSegmentIntersection(segA, segB) {
   //https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
   let dxA, dyA, dxB, dyB, denom, s, t;
@@ -9,13 +14,15 @@ function lineSegmentIntersection(segA, segB) {
   dyB = segB[1][1] - segB[0][1];
   denom = -dxB*dyA + dxA*dyB
   s = (-dyA * (segA[0][0] - segB[0][0]) + dxA * (segA[0][1] - segB[0][1])) / denom; 
-  t = ( dxB * (segA[0][1] - segB[0][1]) - dyB * (segA[0][0] - segB[0][0])) / denom; 
-  
-  if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
-    return [segA[0][0] + t * dxA,
-            segA[0][1] + t * dyA];
+  if (s < 0 || s > 1) {
+	  return null;
   }
-  return null;
+  t = ( dxB * (segA[0][1] - segB[0][1]) - dyB * (segA[0][0] - segB[0][0])) / denom; 
+  if (t < 0 || t > 1) {
+	  return null;
+  }
+  return [segA[0][0] + t * dxA,
+		  segA[0][1] + t * dyA];
 }
 class Polygon {
   constructor (pts) {
@@ -150,15 +157,15 @@ function generate_shape(x, y, z, theta) {
 ///////////////////////////////////////////////////////////////
 // Define animation variables
 ///////////////////////////////////////////////////////////////
-var SPEED = 0.8;
-var SPAWN_INTERVAL = 5;
 var MIN_DEPTH = 0.05;
-var FOCAL_LENGTH = 9;
+var FOCAL_LENGTH = 13;
 var N_SIDES = 4;
 var MIN_RENDER_AREA = 0.015;
 
 export class CorridorVisualization {
 	constructor(parent_div) {
+		this.speed = 0.1;
+	    this.spawn_interval = 15;
 		this.running = false;
 		this.width = parent_div.style('width').slice(0, -2);
 		this.height = parent_div.style('height').slice(0, -2);
@@ -195,6 +202,8 @@ export class CorridorVisualization {
 			   .style('font-size', '12px')
 	}
 	reset() {
+		this.speed = random_uniform(0.1, 0.8);
+		this.spawn_interval = Math.round(random_uniform(8, 20));
 		let was_running = this.running;
 		this.running = false;
 		this.shapes = new Array();
@@ -226,10 +235,10 @@ export class CorridorVisualization {
 			.attr("x2", d => this.xscale(d.pts[1][0]))
 			.attr("y2", d => this.yscale(d.pts[1][1]))
 			.attr("stroke-width", function(d) {
-				return d.z < 15 ? 15-d.z : 1;
+				return d.z < 14 ? 15-d.z : 1;
 			})
 			.style("stroke", function(d) {
-				let val = d.z < 20 ? 255*d.z/20 : 255;
+				let val = d.z < 20 ? 255*Math.max(d.z, 0)/20 : 255;
 				return `rgb(${val}, ${val}, ${val})`;
 			})
 	}
@@ -241,11 +250,11 @@ export class CorridorVisualization {
 	}
 	step_physics() {
   		this.update_vp();
-  		if (this.t % SPAWN_INTERVAL == 0) {
+  		if (this.t % this.spawn_interval == 0) {
     		this.shapes.push(generate_shape(this.vp.x, this.vp.y, this.vp.z, this.vp.theta));
   		}
 		this.t++;
-  		this.shapes.forEach(sh => {sh.z -= SPEED;});
+  		this.shapes.forEach(sh => {sh.z -= this.speed;});
   		var n_to_remove = 0;
   		let polygon, new_render_area;
   		let render_area = new Polygon([[-this.width/2,-this.height/2],

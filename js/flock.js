@@ -10,10 +10,11 @@ export class FlockVisualization {
 		this.yscale = d3.scaleLinear()
 					  .range([0, parent_div.style('height')])
 					  .domain([-0., 1.])
-		this.n_birds = 100;
-		this.bird_size = 0.04;
-		this.noise_magn = 0.30;
-		this.dt = 0.01;
+		this.n_birds = 400;
+		this.bird_size = 0.03;
+		this.noise_magn = 0.40;
+		this.n_grid = 3;
+		this.dt = 0.004;
 		this.svg = parent_div.append('svg')
 		   		.attr('width', parent_div.style('width'))
 				.attr('height', parent_div.style('height'))
@@ -92,35 +93,43 @@ export class FlockVisualization {
 	step_physics() {
 		// avoid wall
 		let grid_pools = [];
-		let n_grid = 8;
-		for (let i=0; i< n_grid*n_grid; i++){
-			grid_pools.push({dx:0, dy:0});
+		for (let i=0; i< this.n_grid*this.n_grid; i++){
+			grid_pools.push({dx:0, dy:0, count:0});
 		}
 		for (let i=0;i<this.n_birds; i++) {
 			let x = Math.min(Math.max(this.birds[i].x, 0.001), 0.999);
 			let y = Math.min(Math.max(this.birds[i].y, 0.001), 0.999);
-			this.birds[i].grid_id = Math.floor(n_grid*x) + n_grid * Math.floor(n_grid*y);
+			this.birds[i].grid_id = Math.floor(this.n_grid*x) + this.n_grid * Math.floor(this.n_grid*y);
 			grid_pools[this.birds[i].grid_id].dx += this.birds[i].dx;
 			grid_pools[this.birds[i].grid_id].dy += this.birds[i].dy;
+			grid_pools[this.birds[i].grid_id].count += 1;
 		}
+		for (let i=0; i<grid_pools.length; i++){
+			grid_pools[i].dx = grid_pools[i].dx / grid_pools[i].count;
+			grid_pools[i].dy = grid_pools[i].dy / grid_pools[i].count;
+		}
+
 		for (let i=0;i<this.n_birds; i++) {
 			let d = this.birds[i];
 			//noise
 			let dth = this.noise_magn*(Math.random()-0.5);
 			 //adjust dth to avoid wall, need to make this smooth
 			if (d.x < 0.4 && d.dx < 0) {
-				dth -= 0.1*d.dy * Math.pow(1.4-d.x, 4);
+				dth -= 0.1*d.dy * Math.pow(1.1-d.x, 2);
 			} else if (d.x > 0.6 && d.dx > 0) {
-				dth += 0.1*d.dy * Math.pow(d.x+0.4, 4);
+				dth += 0.1*d.dy * Math.pow(d.x+0.1, 2);
 			} else if (d.y < 0.4 && d.dy < 0) {
-				dth += 0.1*d.dx * Math.pow(1.4-d.y, 4);
+				dth += 0.1*d.dx * Math.pow(1.1-d.y, 2);
 			} else if (d.y > 0.6 && d.dy > 0) {
-				dth -= 0.1*d.dx * Math.pow(d.y+0.4, 4);
+				dth -= 0.1*d.dx * Math.pow(d.y+0.1, 2);
 			}
 			let dot = grid_pools[d.grid_id].dx * d.dx + grid_pools[d.grid_id].dy * d.dy;
 			let cross = grid_pools[d.grid_id].dx * d.dy - grid_pools[d.grid_id].dy * d.dx;
-			if (0.9 > Math.abs(dot) > 0.3) {
-				dth -= Math.sign(cross) * 0.1;
+			if (0.83 > Math.abs(dot) > 0.4) {
+				dth -= cross*0.1;
+			}
+			if (Math.abs(dot) > 0.83) {
+				dth += cross*0.1;
 			}
 			d.x += d.speed * d.dx * this.dt;
 			d.y += d.speed * d.dy * this.dt;
