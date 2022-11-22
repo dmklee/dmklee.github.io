@@ -1,7 +1,7 @@
 import { ThreeBodyVisualization } from './three_body.js';
 import { CorridorVisualization } from './corridor.js';
 import { FlockVisualization } from './flock.js';
-import { InsideOutVisualization } from './inside_out.js';
+//import { InsideOutVisualization } from './inside_out.js';
 //import { ErosionVisualization } from './erosion.js';
 
 const publications = [
