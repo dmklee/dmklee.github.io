@@ -3,6 +3,7 @@ import { CorridorVisualization } from './corridor.js';
 import { FlockVisualization } from './flock.js';
 //import { InsideOutVisualization } from './inside_out.js';
 //import { ErosionVisualization } from './erosion.js';
+import { VoronoiVisualization } from './voronoi.js';
 
 const publications = [
 	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
@@ -414,6 +415,7 @@ var visualizations = [
 	{name: 'Flock', constructor: FlockVisualization, obj: null},
 	//{name: 'Inside Out', constructor: InsideOutVisualization, obj: null},
 	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
+	{name: 'Voronoi', constructor: VoronoiVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
 	make_header('Visualizations');
