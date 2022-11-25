@@ -2,8 +2,8 @@ To add publications or teaching experience, add the info to the object arrays at
 
 ToDo:
 - add cool background
-- add social buttons
-- add section about nuro-arm
+- add more background
+
 
 because it now uses imports, you must test is locally with:
 ```
