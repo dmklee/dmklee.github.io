@@ -4,6 +4,7 @@ import { FlockVisualization } from './flock.js';
 //import { InsideOutVisualization } from './inside_out.js';
 //import { ErosionVisualization } from './erosion.js';
 import { BenhamsTopVisualization } from './benhams_top.js';
+import { WindmillVisualization } from './wertheimer_windmill.js';
 import { VoronoiVisualization } from './voronoi.js';
 
 const publications = [
@@ -418,6 +419,7 @@ var visualizations = [
 	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
 	{name: 'Voronoi', constructor: VoronoiVisualization, obj: null},
 	{name: 'Flicker', constructor: BenhamsTopVisualization, obj: null},
+	{name: 'Windmill', constructor: WindmillVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
 	make_header('Visualizations');
