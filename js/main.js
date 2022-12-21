@@ -3,6 +3,7 @@ import { CorridorVisualization } from './corridor.js';
 import { FlockVisualization } from './flock.js';
 //import { InsideOutVisualization } from './inside_out.js';
 //import { ErosionVisualization } from './erosion.js';
+import { BenhamsTopVisualization } from './benhams_top.js';
 import { VoronoiVisualization } from './voronoi.js';
 
 const publications = [
@@ -416,6 +417,7 @@ var visualizations = [
 	//{name: 'Inside Out', constructor: InsideOutVisualization, obj: null},
 	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
 	{name: 'Voronoi', constructor: VoronoiVisualization, obj: null},
+	{name: 'Flicker', constructor: BenhamsTopVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
 	make_header('Visualizations');
