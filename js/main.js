@@ -8,9 +8,20 @@ import { WindmillVisualization } from './wertheimer_windmill.js';
 import { VoronoiVisualization } from './voronoi.js';
 
 const publications = [
-	{'title' : "I2I: Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
+	{'title' : "Image to Sphere: Learning Equivariant Features for Efficient Pose Prediction",
 	 'authors' : 'David M. Klee, Ondrej Biza, Robert Platt, Robin Walters',
-	 'destination' : 'PMLR Volume on Symmetry and Geometry',
+	 'destination' : 'ICLR 2023 (notable-top-5%)',
+	 'media' : 'assets/publications/i2s/media.png',
+	 'buttons' : {
+		 'Webpage' : 'https://dmklee.github.io/image2sphere',
+		 'PDF' : 'https://openreview.net/forum?id=_2bDpAtr7PI&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICLR.cc%2F2023%2FConference%2FAuthors%23your-submissions)',
+		 'Code' : 'https://github.com/dmklee/image2sphere',
+		 'Poster' : '',
+	 }
+	},
+	{'title' : "Image to Icosahedral Projection for SO(3) Object Reasoning from Single-View Images",
+	 'authors' : 'David M. Klee, Ondrej Biza, Robert Platt, Robin Walters',
+	 'destination' : 'PMLR Vol. 197',
 	 'media' : 'assets/publications/i2i/media.png',
 	 'buttons' : {
 		 'Webpage' : 'https://dmklee.github.io/image2icosahedral',
@@ -21,7 +32,7 @@ const publications = [
 	},
 	{'title' : 'Graph Structured Policy Learning for Multi-Goal Manipulation Tasks',
 	 'authors' : 'David M. Klee, Ondrej Biza, Robert Platt',
-	 'destination' : 'IROS 2022, Kyoto, Japan',
+	 'destination' : 'IROS 2022',
 	 'media' : 'assets/publications/iros22/media.png',
 	 'buttons' : {
 		 'Webpage' : 'https://dmklee.github.io/graph-structured-manip',
@@ -33,7 +44,7 @@ const publications = [
 	},
 	{'title' : "Understanding the Mechanism behind Data Augmentation's Success on Image Based RL",
 	 'authors' : 'David M. Klee, Robin Walters, Robert Platt',
-	 'destination' : 'RLDM 2022, Providence, RI, USA',
+	 'destination' : 'RLDM 2022',
 	 'media' : 'assets/publications/data_aug/media.png',
 	 'buttons' : {
 		 'PDF' : './assets/publications/data_aug/paper.pdf',
@@ -62,6 +73,14 @@ const publications = [
 	},
 ];
 const teaching_experiences = [
+	{'course' : 'CS5335: Robotics Science and Systems',
+	 'website' : '',
+	 'role' : 'Teaching Assistant',
+	 'location' : 'Northeastern University',
+	 'date' : 'Spring 2023',
+	 'buttons' : {
+	 },
+	},
 	{'course' : 'CS4910: Deep Learning for Robotics',
 	 'website' : 'https://www.ccs.neu.edu/home/dmklee/cs4910_s22/index.html',
 	 'role' : 'Instructor',
@@ -113,7 +132,7 @@ const name = "David M. Klee";
 d3.select("body")
 	.style("max-width", "1000px")
 	.style("margin", "0 auto")
-	.style("font-family", "Times New Roman")
+	.style("font-family", "Nunito, serif")
 	.style("font-size", "1.2rem");
 
 var header = d3.select("#header")
@@ -158,7 +177,7 @@ intro_div.append('div')
 		 .style('max-width', '200px')
 		 .append('img')
 		 .attr('id', 'avatar')
-		 .attr('src', 'assets/images/avatar.png')
+		 .attr('src', 'assets/images/profile.jpg')
 		 .style('border-radius', '50%')
 		 .style('width', '100%')
 
@@ -418,8 +437,8 @@ var visualizations = [
 	//{name: 'Inside Out', constructor: InsideOutVisualization, obj: null},
 	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
 	{name: 'Voronoi', constructor: VoronoiVisualization, obj: null},
-	{name: 'Flicker', constructor: BenhamsTopVisualization, obj: null},
-	{name: 'Windmill', constructor: WindmillVisualization, obj: null},
+	//{name: 'Flicker', constructor: BenhamsTopVisualization, obj: null},
+	//{name: 'Windmill', constructor: WindmillVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
 	make_header('Visualizations');
