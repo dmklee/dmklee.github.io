@@ -188,12 +188,13 @@ var text_intro = intro_div.append('div')
 		      .style('max-width', '600px')
 		      .style('text-align', 'justify')
 
-var bio_text = `I am a PhD student at Northeastern University.  I am a member of the Helping Hands Lab, 
-			   advised by Robert Platt. I am studying how to learn object representations for robotic 
-			   manipulation tasks. I am also interested in robotics education and low-cost robotic manipulators.`
+var bio_text = `I am a PhD student at Northeastern University, advised by Robert Platt
+				and Robin Walters. My research is on equivariant neural networks and 
+				object representations for robotic manipulation tasks. I am also 
+				interested in robotics education and low-cost robotic manipulators.`
 var links_to_add = [
-	{text: 'Helping Hands Lab', href:'https://www2.ccs.neu.edu/research/helpinghands/group.html'},
 	{text: 'Robert Platt', href:'https://www.khoury.northeastern.edu/people/robert-platt/'},
+	{text: 'Robin Walters', href:'https://www.khoury.northeastern.edu/people/robin-walters/'},
 ];
 					
 
