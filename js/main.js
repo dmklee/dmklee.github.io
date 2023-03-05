@@ -114,6 +114,11 @@ const socials = [
 	 'img' : 'assets/images/gscholar.png',
 	 'size' : '41px',
 	},
+	{'name' : 'Resume',
+	 'link' : 'assets/CV.pdf',
+	 'img' : 'assets/images/resume_icon.png',
+	 'size' : '41px',
+	},
 
 ];
 const projects = [
@@ -188,10 +193,12 @@ var text_intro = intro_div.append('div')
 		      .style('max-width', '600px')
 		      .style('text-align', 'justify')
 
-var bio_text = `I am a PhD student at Northeastern University, advised by Robert Platt
-				and Robin Walters. My research is on equivariant neural networks and 
-				object representations for robotic manipulation tasks. I am also 
-				interested in robotics education and low-cost robotic manipulators.`
+var bio_text = `
+I am a PhD student at Northeastern University, advised by Robert Platt
+and Robin Walters. My research is on equivariant neural networks and 
+object representations for robotic manipulation tasks. I am also 
+interested in robotics education and low-cost robotic manipulators.
+`
 var links_to_add = [
 	{text: 'Robert Platt', href:'https://www.khoury.northeastern.edu/people/robert-platt/'},
 	{text: 'Robin Walters', href:'https://www.khoury.northeastern.edu/people/robin-walters/'},
