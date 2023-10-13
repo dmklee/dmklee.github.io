@@ -6,8 +6,20 @@ import { FlockVisualization } from './flock.js';
 import { BenhamsTopVisualization } from './benhams_top.js';
 import { WindmillVisualization } from './wertheimer_windmill.js';
 import { VoronoiVisualization } from './voronoi.js';
+import { QuadTreeVisualization } from './quadtree.js';
 
 const publications = [
+	{'title' : "Equivariant Single View Pose Prediction Via Induced and Restricted Representations",
+	 'authors' : 'Owen Howell, David M. Klee, Ondrej Biza, Linfeng Zhao, Robin Walters',
+	 'destination' : 'NeurIPS 2023',
+	 'media' : 'assets/publications/ind_i2s/media.png',
+	 'buttons' : {
+		 'Webpage' : '',
+		 'PDF' : 'https://arxiv.org/pdf/2307.03704',
+		 'Code' : '',
+		 'Poster' : '',
+	 }
+	},
 	{'title' : "Image to Sphere: Learning Equivariant Features for Efficient Pose Prediction",
 	 'authors' : 'David M. Klee, Ondrej Biza, Robert Platt, Robin Walters',
 	 'destination' : 'ICLR 2023 (notable-top-5%)',
@@ -445,6 +457,7 @@ var visualizations = [
 	//{name: 'Inside Out', constructor: InsideOutVisualization, obj: null},
 	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
 	{name: 'Voronoi', constructor: VoronoiVisualization, obj: null},
+	{name: 'QuadTree', constructor: QuadTreeVisualization, obj: null},
 	//{name: 'Flicker', constructor: BenhamsTopVisualization, obj: null},
 	//{name: 'Windmill', constructor: WindmillVisualization, obj: null},
 ];
