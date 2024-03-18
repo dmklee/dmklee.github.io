@@ -147,6 +147,7 @@ const projects = [
 const name = "David M. Klee";
 
 d3.select("body")
+	.style("background-color", "#f1f7ff")
 	.style("max-width", "1000px")
 	.style("margin", "0 auto")
 	.style("font-family", "Nunito, serif")
