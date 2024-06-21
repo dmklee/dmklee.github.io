@@ -9,6 +9,17 @@ import { VoronoiVisualization } from './voronoi.js';
 import { QuadTreeVisualization } from './quadtree.js';
 
 const publications = [
+	{'title' : "Reducing Symmetry Mismatch Caused by Freely Placed Cameras in Robotic Learning",
+	 'authors' : 'David M. Klee, Dian Wang, Robert Platt, Robin Walters',
+	 'destination' : 'under review',
+	 'media' : 'assets/publications/sideview/figure1.png',
+	 'buttons' : {
+		 'Webpage' : '',
+		 'PDF' : '',
+		 'Code' : '',
+		 'Poster' : '',
+	 }
+	},
 	{'title' : "Equivariant Single View Pose Prediction Via Induced and Restricted Representations",
 	 'authors' : 'Owen Howell, David M. Klee, Ondrej Biza, Linfeng Zhao, Robin Walters',
 	 'destination' : 'NeurIPS 2023',
@@ -134,11 +145,26 @@ const socials = [
 
 ];
 const projects = [
+	{'title' : 'Browser Robotics',
+	 'desc' : 'Robotics simulator and code editor in the browser.',
+	 'media' : 'assets/projects/browserrobotics/demo.png',
+	 'buttons' : {
+		 'Website' : 'https://browserrobotics.com',
+	 }
+	},
+	{'title' : 'Equivision: Equivariant Vision Model Zoo',
+	 'desc' : 'A collection of E(2) equivariant vision models that were pre-trained on ImageNet-1k.',
+	 'media' : 'assets/projects/equivision/media.png',
+	 'buttons' : {
+		 'Code' : 'https://github.com/dmklee/equivision',
+	 }
+	},
 	{'title' : 'NURO Arm',
 	 'desc' : 'Accessible educational platform for hands-on robotics projects.  Offers simple Python interface for controlling robotic arm with cross-platform support and virtual simulator.',
 	 'media' : 'assets/projects/nuro-arm/media.png',
 	 'buttons' : {
 		 'Website' : 'https://dmklee.github.io/nuro-arm',
+		 'Code' : 'https://github.com/dmklee/nuro-arm',
 		 'Docs' : 'https://nuro-arm.readthedocs.io/en/latest/?',
 	 }
 	},
@@ -460,7 +486,7 @@ var visualizations = [
 	{name: 'Voronoi', constructor: VoronoiVisualization, obj: null},
 	{name: 'QuadTree', constructor: QuadTreeVisualization, obj: null},
 	//{name: 'Flicker', constructor: BenhamsTopVisualization, obj: null},
-	//{name: 'Windmill', constructor: WindmillVisualization, obj: null},
+	{name: 'Windmill', constructor: WindmillVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
 	make_header('Visualizations');
