@@ -145,11 +145,11 @@ const socials = [
 
 ];
 const projects = [
-	{'title' : 'Browser Robotics',
-	 'desc' : 'Robotics simulator and code editor in the browser.',
-	 'media' : 'assets/projects/browserrobotics/demo.png',
+	{'title' : 'BrowserBotics',
+	 'desc' : 'Educational tool for learning robotics and programming on any device.',
+	 'media' : 'assets/projects/browserbotics/demo.png',
 	 'buttons' : {
-		 'Website' : 'https://browserrobotics.com',
+		 'Website' : 'https://browserbotics.com',
 	 }
 	},
 	{'title' : 'Equivision: Equivariant Vision Model Zoo',
@@ -233,7 +233,7 @@ var text_intro = intro_div.append('div')
 		      .style('text-align', 'justify')
 
 var bio_text = `
-I am a PhD student at Northeastern University, advised by Robert Platt
+I am PhD student at Northeastern University, advised by Robert Platt
 and Robin Walters. My research is on equivariant neural networks and 
 object representations for robotic manipulation tasks. I am also 
 interested in robotics education and low-cost robotic manipulators.
@@ -478,15 +478,15 @@ projects.map(add_project);
 // make visualizations
 ///////////////////////////////////////////////
 var visualizations = [
-	{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
-	{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
-	{name: 'Flock', constructor: FlockVisualization, obj: null},
-	//{name: 'Inside Out', constructor: InsideOutVisualization, obj: null},
-	//{name: 'Erosion', constructor: ErosionVisualization, obj: null},
-	{name: 'Voronoi', constructor: VoronoiVisualization, obj: null},
-	{name: 'QuadTree', constructor: QuadTreeVisualization, obj: null},
-	//{name: 'Flicker', constructor: BenhamsTopVisualization, obj: null},
-	{name: 'Windmill', constructor: WindmillVisualization, obj: null},
+	//{name: 'Three Body Problem', constructor: ThreeBodyVisualization, obj: null},
+	//{name: 'Infinite Corridor', constructor: CorridorVisualization, obj: null},
+	//{name: 'Flock', constructor: FlockVisualization, obj: null},
+	////{name: 'Inside Out', constructor: InsideOutVisualization, obj: null},
+	////{name: 'Erosion', constructor: ErosionVisualization, obj: null},
+	//{name: 'Voronoi', constructor: VoronoiVisualization, obj: null},
+	//{name: 'QuadTree', constructor: QuadTreeVisualization, obj: null},
+	////{name: 'Flicker', constructor: BenhamsTopVisualization, obj: null},
+	//{name: 'Windmill', constructor: WindmillVisualization, obj: null},
 ];
 if (visualizations.length > 0) {
 	make_header('Visualizations');
