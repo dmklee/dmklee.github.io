@@ -9,13 +9,24 @@ import { VoronoiVisualization } from './voronoi.js';
 import { QuadTreeVisualization } from './quadtree.js';
 
 const publications = [
+	{'title' : "RAVEN: End-to-end Equivariant Robot Learning with RGB Cameras",
+	 'authors' : 'David M. Klee*, Boce Hu*, Andrew Cole, Heng Tian, Dian Wang, Robert Platt, Robin Walters',
+	 'destination' : 'ICLR 2026',
+	 'media' : 'assets/publications/raven/media.png',
+	 'buttons' : {
+		 'Webpage' : 'https://dmklee.github.io/raven',
+		 'PDF' : 'https://openreview.net/pdf?id=z8BN7KyaPl',
+		 'Code' : 'https://github.com/dmklee/raven',
+		 'Poster' : 'assets/publications/raven/poster.pdf',
+	 }
+	},
 	{'title' : "Reducing Symmetry Mismatch Caused by Freely Placed Cameras in Robotic Learning",
 	 'authors' : 'David M. Klee, Dian Wang, Robert Platt, Robin Walters',
-	 'destination' : 'under review',
+	 'destination' : 'Preprint',
 	 'media' : 'assets/publications/sideview/figure1.png',
 	 'buttons' : {
 		 'Webpage' : '',
-		 'PDF' : '',
+		 'PDF' : 'assets/publications/sideview/paper.pdf',
 		 'Code' : '',
 		 'Poster' : '',
 	 }
